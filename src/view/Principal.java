@@ -327,7 +327,6 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void TFDisplayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFDisplayActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_TFDisplayActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -394,7 +393,12 @@ public class Principal extends javax.swing.JFrame {
             return;
             
         }
+//        System.out.println(operation);
         valorFinal = Double.parseDouble(TFDisplay.getText());
+//        System.out.println("final = " +valorFinal);
+//        System.out.println("inicial = " + valorInicial);
+//        System.out.println("memory = " + memory );
+//        
 //        System.out.println(operation);
 //        System.out.println("final = " +valorFinal);
 //        System.out.println("inicial = " + valorInicial);
