@@ -500,6 +500,7 @@ public class Principal extends javax.swing.JFrame {
             return;
         }
         memory = 0.0;
+        
        TFMemory.setText("");
         
     }//GEN-LAST:event_btnMemClearActionPerformed
