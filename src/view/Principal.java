@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Project Calculator
  */
 package view;
 
@@ -20,7 +18,6 @@ public class Principal extends javax.swing.JFrame {
     double memory = 0.0;
     double memMinus = 0.0;
     String operation;
-    String separador;
     public Principal() {
         initComponents();
         TFDisplay.setText("");
@@ -121,7 +118,12 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        btnDec.setText(",");
+        btnDec.setText(".");
+        btnDec.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDecActionPerformed(evt);
+            }
+        });
 
         btn3.setText("3");
         btn3.addActionListener(new java.awt.event.ActionListener() {
@@ -321,7 +323,6 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-        // TODO add your handling code here:
         TFDisplay.setText(TFDisplay.getText() + 1);
     }//GEN-LAST:event_btn1ActionPerformed
 
@@ -343,13 +344,11 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn3ActionPerformed
 
     private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
-        // TODO add your handling code here:
         TFDisplay.setText(TFDisplay.getText() + 4);
 
     }//GEN-LAST:event_btn4ActionPerformed
 
     private void btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5ActionPerformed
-        // TODO add your handling code here:
         TFDisplay.setText(TFDisplay.getText() + 5);
 
     }//GEN-LAST:event_btn5ActionPerformed
@@ -361,7 +360,6 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn6ActionPerformed
 
     private void btn7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7ActionPerformed
-        // TODO add your handling code here:
                 TFDisplay.setText(TFDisplay.getText() + 7);
 
     }//GEN-LAST:event_btn7ActionPerformed
@@ -373,37 +371,34 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn8ActionPerformed
 
     private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
-        // TODO add your handling code here:
         TFDisplay.setText(TFDisplay.getText() + 9);
 
     }//GEN-LAST:event_btn9ActionPerformed
 
     private void btnZeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZeroActionPerformed
-        // TODO add your handling code here:
         TFDisplay.setText(TFDisplay.getText() + 0);
 
     }//GEN-LAST:event_btnZeroActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
+        if (TFDisplay.getText().equals("")){
+            return;
+        }
         valorInicial = Double.parseDouble(TFDisplay.getText());
         TFDisplay.setText("");
         operation = "add";
-        separador = ",";
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcActionPerformed
-        // TODO add your handling code here:
         if (TFDisplay.getText().equals("")){
             return;
             
         }
-        System.out.println(operation);
-        //String[] numeroFinal = TFDisplay.getText().split(operation);
         valorFinal = Double.parseDouble(TFDisplay.getText());
-        System.out.println("final = " +valorFinal);
-        System.out.println("inicial = " + valorInicial);
-        System.out.println("memory = " + memory );
+//        System.out.println(operation);
+//        System.out.println("final = " +valorFinal);
+//        System.out.println("inicial = " + valorInicial);
+//        System.out.println("memory = " + memory );
         
         switch (operation){
             case "add":
@@ -412,10 +407,6 @@ public class Principal extends javax.swing.JFrame {
                 break;
             case "minus":
                 resultado = valorInicial - valorFinal;
-                TFDisplay.setText(""+resultado);
-                break;
-            case "perecent":
-                resultado = valorInicial * (valorFinal/100);
                 TFDisplay.setText(""+resultado);
                 break;
             case "multiply":
@@ -435,21 +426,42 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCalcActionPerformed
 
     private void btnMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinusActionPerformed
-        // TODO add your handling code here:
+        if (TFDisplay.getText().equals("")){
+            return;
+        }
         valorInicial = Double.parseDouble(TFDisplay.getText());
         TFDisplay.setText("");
         operation = "minus";
     }//GEN-LAST:event_btnMinusActionPerformed
 
     private void btnPercActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPercActionPerformed
-        // TODO add your handling code here:
-        valorInicial = Double.parseDouble(TFDisplay.getText());
-        TFDisplay.setText("");
-        operation = "percent";
+        
+        if (TFDisplay.getText().equals("")){
+            return;
+        } else if (valorInicial == 0.0){
+            return;
+        }
+        
+        valorFinal = Double.parseDouble(TFDisplay.getText());
+        if (operation.equals("add")){
+            resultado = valorInicial + (valorInicial * (valorFinal/100));
+            TFDisplay.setText(resultado+"");
+        } else if (operation.equals("minus")){
+            resultado = valorInicial - (valorInicial * (valorFinal/100));
+            TFDisplay.setText(""+resultado);
+        } else {
+            TFDisplay.setText("0.00");
+        }
+        
+        
+        
+        
     }//GEN-LAST:event_btnPercActionPerformed
 
     private void btnMultiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMultiActionPerformed
-        // TODO add your handling code here:
+        if (TFDisplay.getText().equals("")){
+            return;
+        }
         valorInicial = Double.parseDouble(TFDisplay.getText());
         TFDisplay.setText("");
         operation = "multiply";
@@ -457,28 +469,47 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMultiActionPerformed
 
     private void btnDivActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDivActionPerformed
-        // TODO add your handling code here:
+        if (TFDisplay.getText().equals("")){
+            return;
+        }
         valorInicial = Double.parseDouble(TFDisplay.getText());
         TFDisplay.setText("");
         operation = "div";
     }//GEN-LAST:event_btnDivActionPerformed
 
     private void btnMemAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemAddActionPerformed
-       memory += Double.parseDouble(TFDisplay.getText());
+       if (TFDisplay.getText().equals("")){
+            return;
+        }
+        memory += Double.parseDouble(TFDisplay.getText());
        TFMemory.setText(""+memory);
     }//GEN-LAST:event_btnMemAddActionPerformed
 
     private void btnMemMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemMinusActionPerformed
+       if (TFDisplay.getText().equals("")){
+            return;
+        } else if (memory == 0.0){
+            return;
+        }
        memory -= Double.parseDouble(TFDisplay.getText());
        TFMemory.setText(""+memory);
     }//GEN-LAST:event_btnMemMinusActionPerformed
 
     private void btnMemClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMemClearActionPerformed
-        // TODO add your handling code here:
-       memory = 0.0;
+       if (TFDisplay.getText().equals("")){
+            return;
+        }
+        memory = 0.0;
        TFMemory.setText("");
         
     }//GEN-LAST:event_btnMemClearActionPerformed
+
+    private void btnDecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDecActionPerformed
+        if (TFDisplay.getText().equals("")){
+            return;
+        }
+        TFDisplay.setText(TFDisplay.getText()+ ".");
+    }//GEN-LAST:event_btnDecActionPerformed
 
     /**
      * @param args the command line arguments
